@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Common-Utils:war">
+    <output-path>$PROJECT_DIR$/Common-Utils/target</output-path>
+    <root id="archive" name="swat.common.utils.war">
+      <element id="artifact" artifact-name="Common-Utils:war exploded" />
+    </root>
+  </artifact>
+</component>
