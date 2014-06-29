@@ -1,9 +1,6 @@
 package swat.algorithms.tree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @author Sujal
@@ -81,6 +78,42 @@ public class BinaryTree {
         getInorder(root.getrChild(), arrayList);
 
         return arrayList;
+    }
+
+    public List<Integer> getInorderThroughIteration() {
+        return getInorderThroughIteration(root);
+    }
+
+    private List<Integer> getInorderThroughIteration(BinaryTreeNode node) {
+
+        List<Integer> inorderTraversal = new ArrayList<Integer>();
+
+        if(node == null) {
+            return inorderTraversal;
+        }
+
+        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+        stack.push(node);
+
+        while(true) {
+            if(stack.isEmpty()) {
+                break;
+            }
+
+            while((node != null) && ((node = node.getlChild()) != null)) {
+                stack.push(node);
+            }
+
+            node = stack.pop();
+            inorderTraversal.add(node.getKey());
+
+            node = node.getrChild();
+            if(node != null) {
+                stack.push(node);
+            }
+        }
+
+        return inorderTraversal;
     }
 
     public List<Integer> getPreorderThroughRecursion() {

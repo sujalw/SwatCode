@@ -44,6 +44,14 @@ public class BinaryTreeTest {
         assert computedInorderTraversal.equals(expectedInorderTraversal);
     }
 
+    @Test(dataProvider = "inorderTraversal")
+    public void testInorderTraversalThroughIteration(int[] treeElements, List<Integer> expectedInorderTraversal) {
+        BinaryTree binaryTree = new BinaryTree(treeElements);
+        List<Integer> computedInorderTraversal = binaryTree.getInorderThroughIteration();
+
+        assert computedInorderTraversal.equals(expectedInorderTraversal);
+    }
+
     @Test(dataProvider = "preorderTraversal")
     public void testPreorderTraversalThroughRecursion(int[] treeElements, List<Integer> expectedPreorderTraversal) {
         BinaryTree binaryTree = new BinaryTree(treeElements);
