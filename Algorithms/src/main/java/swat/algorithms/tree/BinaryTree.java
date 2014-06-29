@@ -64,7 +64,7 @@ public class BinaryTree {
         return root;
     }
 
-    public List<Integer> getInorderThroughRecursion() {
+    public List<Integer> getInorderUsingRecursion() {
         return getInorder(root, new ArrayList<Integer>());
     }
 
@@ -80,11 +80,11 @@ public class BinaryTree {
         return arrayList;
     }
 
-    public List<Integer> getInorderThroughIteration() {
-        return getInorderThroughIteration(root);
+    public List<Integer> getInorderUsingIteration() {
+        return getInorderUsingIteration(root);
     }
 
-    private List<Integer> getInorderThroughIteration(BinaryTreeNode node) {
+    private List<Integer> getInorderUsingIteration(BinaryTreeNode node) {
 
         List<Integer> inorderTraversal = new ArrayList<Integer>();
 
@@ -116,24 +116,58 @@ public class BinaryTree {
         return inorderTraversal;
     }
 
-    public List<Integer> getPreorderThroughRecursion() {
+    public List<Integer> getPreorderUsingRecursion() {
         List<Integer> preorder = new ArrayList<Integer>();
-        getPreorder(root, preorder);
+        getPreorderUsingRecursion(root, preorder);
 
         return preorder;
     }
 
-    private void getPreorder(BinaryTreeNode root, List<Integer> arrayList) {
+    private void getPreorderUsingRecursion(BinaryTreeNode root, List<Integer> arrayList) {
         if(root == null) {
             return;
         }
 
         arrayList.add(root.getKey());
-        getPreorder(root.getlChild(), arrayList);
-        getPreorder(root.getrChild(), arrayList);
+        getPreorderUsingRecursion(root.getlChild(), arrayList);
+        getPreorderUsingRecursion(root.getrChild(), arrayList);
     }
 
-    public List<Integer> getPostorderThroughRecursion() {
+    public List<Integer> getPreorderUsingIteration() {
+        return getPreorderUsingIteration(root);
+    }
+
+    private List<Integer> getPreorderUsingIteration(BinaryTreeNode node) {
+
+        List<Integer> preorderTraversal = new ArrayList<Integer>();
+        if(node == null) {
+            return preorderTraversal;
+        }
+
+        Stack<BinaryTreeNode> binaryTreeNodeStack = new Stack<BinaryTreeNode>();
+
+        preorderTraversal.add(node.getKey());
+        binaryTreeNodeStack.push(node);
+
+        while(! binaryTreeNodeStack.isEmpty()) {
+            while((node != null) && ((node = node.getlChild()) != null)) {
+                preorderTraversal.add(node.getKey());
+                binaryTreeNodeStack.push(node);
+            }
+
+            node = binaryTreeNodeStack.pop();
+            node = node.getrChild();
+            if(node != null) {
+                preorderTraversal.add(node.getKey());
+                binaryTreeNodeStack.push(node);
+            }
+        }
+
+        return preorderTraversal;
+    }
+
+
+    public List<Integer> getPostorderUsingRecursion() {
         List<Integer> postorder = new ArrayList<Integer>();
         getPostorder(root, postorder);
 
@@ -148,6 +182,55 @@ public class BinaryTree {
         getPostorder(root.getlChild(), arrayList);
         getPostorder(root.getrChild(), arrayList);
         arrayList.add(root.getKey());
+    }
+
+    public List<Integer> getPostorderUsingIteration() {
+        return getPostorderUsingIteration(root);
+    }
+
+    private List<Integer> getPostorderUsingIteration(BinaryTreeNode node) {
+
+        if(node == null) {
+            return new ArrayList<Integer>();
+        }
+
+        List<Integer> reversePreorderTraversal = getReversePreorderUsingIteration(node);
+        if(reversePreorderTraversal == null) {
+            return new ArrayList<Integer>();
+        }
+
+        Collections.reverse(reversePreorderTraversal);
+        return reversePreorderTraversal;
+    }
+
+    private List<Integer> getReversePreorderUsingIteration(BinaryTreeNode node) {
+
+        List<Integer> reversePreorder = new ArrayList<Integer>();
+
+        if(node == null) {
+            return reversePreorder;
+        }
+
+        Stack<BinaryTreeNode> reversePreorderTraversalStack = new Stack<BinaryTreeNode>();
+
+        reversePreorder.add(node.getKey());
+        reversePreorderTraversalStack.push(node);
+
+        while(! reversePreorderTraversalStack.isEmpty()) {
+            while((node != null) && ((node = node.getrChild()) != null)) {
+                reversePreorder.add(node.getKey());
+                reversePreorderTraversalStack.push(node);
+            }
+
+            node = reversePreorderTraversalStack.pop();
+            node = node.getlChild();
+            if(node != null) {
+                reversePreorder.add(node.getKey());
+                reversePreorderTraversalStack.push(node);
+            }
+        }
+
+        return reversePreorder;
     }
 
     public void convertToMirror() {
@@ -166,7 +249,10 @@ public class BinaryTree {
             convertToMirror(node.getrChild());
         }
 
-        // swap left and right children
+        swapChildren(node);
+    }
+
+    private void swapChildren(BinaryTreeNode node) {
         BinaryTreeNode tmpNode = node.getlChild();
         node.setlChild(node.getrChild());
         node.setrChild(tmpNode);
@@ -256,6 +342,5 @@ public class BinaryTree {
         }
 
         return isEqualTo(node1.getlChild(), node2.getlChild()) && isEqualTo(node1.getrChild(), node2.getrChild());
-
     }
 }
