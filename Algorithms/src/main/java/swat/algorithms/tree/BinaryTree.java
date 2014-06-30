@@ -9,7 +9,6 @@ public class BinaryTree {
     BinaryTreeNode root;
 
     public BinaryTree() {
-
     }
 
     public BinaryTree(int[] input) {
@@ -19,6 +18,7 @@ public class BinaryTree {
     public BinaryTreeNode getRoot() {
         return root;
     }
+
     public void setRoot(BinaryTreeNode root) {
         this.root = root;
     }
@@ -27,16 +27,16 @@ public class BinaryTree {
         return getHeight(root);
     }
 
-    private int getHeight(BinaryTreeNode root) {
-        if(root == null) {
-            return 0;
-        }
+	private int getHeight(BinaryTreeNode root) {
+    	if(root == null) {
+			return 0;
+		}
 
-        int lTreeHeight = getHeight(root.getlChild());
-        int rTreeHeight = getHeight(root.getrChild());
+		int lTreeHeight = getHeight(root.getlChild());
+		int rTreeHeight = getHeight(root.getrChild());
 
-        return 1 + Math.max(lTreeHeight, rTreeHeight);
-    }
+		return 1 + Math.max(lTreeHeight, rTreeHeight);
+	}
 
     public BinaryTreeNode createTree(int[] input) {
 
@@ -341,6 +341,7 @@ public class BinaryTree {
             return false;
         }
 
-        return isEqualTo(node1.getlChild(), node2.getlChild()) && isEqualTo(node1.getrChild(), node2.getrChild());
+        return isEqualTo(node1.getlChild(), node2.getlChild())
+                && isEqualTo(node1.getrChild(), node2.getrChild());
     }
 }
