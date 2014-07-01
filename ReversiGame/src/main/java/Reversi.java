@@ -90,8 +90,8 @@ public class Reversi {
 		}
 
 		return isLegalInRowThenFlip(row, col, player)
-				|| isLegalInColumnThenFlip(row, col, player);
-				//|| isLegalInDiagonal(row, col, player);
+				|| isLegalInColumnThenFlip(row, col, player)
+				|| isLegalInDiagonalThenFlip(row, col, player);
 	}
 
 	private boolean isLegalInRowThenFlip(int row, int col, Player player) {
@@ -162,15 +162,8 @@ public class Reversi {
 	}
 
 	private void flipOpponentPiecesInRowWithinBounds(int row, int column1, int column2, Player currentPlayer) {
-		int startColumn, endColumn;
-
-		if(column1 < column2) {
-			startColumn = column1;
-			endColumn = column2;
-		} else {
-			startColumn = column2;
-			endColumn = column1;
-		}
+		int startColumn = Math.min(column1, column2);
+		int endColumn = Math.max(column1, column2);
 
 		for(int column=startColumn ; column<=endColumn ; column++) {
 			board[row][column] = currentPlayer.getCode();
@@ -265,15 +258,9 @@ public class Reversi {
 	}
 
 	private void flipOpponentPiecesInColumnWithinBounds(int col, int row1, int row2, Player currentPlayer) {
-		int startRow, endRow;
 
-		if(row1 < row2) {
-			startRow = row1;
-			endRow = row2;
-		} else {
-			startRow = row2;
-			endRow = row1;
-		}
+		int startRow = Math.min(row1, row2);
+		int endRow = Math.max(row1, row2);
 
 		for(int row=startRow ; row<=endRow ; row++) {
 			board[row][col] = currentPlayer.getCode();
@@ -286,6 +273,222 @@ public class Reversi {
 		int scoreDeltaOpponent = scoreDeltaCurrentPlayer - 1;
 		Player opponent = getOpponentPlayer(currentPlayer);
 		opponent.reduceScore(scoreDeltaOpponent);
+	}
+
+	private boolean isLegalInDiagonalThenFlip(int currentRow, int currentColumn, Player currentPlayer) {
+		return isLegalInPrimaryDiagonalThenFlip(currentRow, currentColumn, currentPlayer)
+				|| isLegalInSecondaryDiagonalThenFlip(currentRow, currentColumn, currentPlayer);
+	}
+
+	private boolean isLegalInPrimaryDiagonalThenFlip(int currentRow, int currentColumn, Player currentPlayer) {
+		return isLegalAboveInPrimaryDiagonalThenFlip(currentRow, currentColumn, currentPlayer)
+				|| isLegalBelowInPrimaryDiagonalThenFlip(currentRow, currentColumn, currentPlayer);
+	}
+
+	private boolean isLegalAboveInPrimaryDiagonalThenFlip(int currentRow, int currentColumn, Player currentPlayer) {
+		int noOfOpponentPieces = 0;
+		boolean foundOtherEnd = false;
+
+		int otherEndRow = -1;
+		int otherEndColumn = -1;
+
+		if(!isFirstRow(currentRow) || !isFirstColumn(currentColumn)) {
+			int row = currentRow - 1;
+			int column = currentColumn - 1;
+
+			while(row>=0 && column>=0) {
+				if(isBlank(row, column)) {
+					return false;
+				}
+
+				if(board[row][column] == currentPlayer.getCode()) {
+					foundOtherEnd = true;
+					otherEndRow = row;
+					otherEndColumn = column;
+
+					break;
+				}
+
+				noOfOpponentPieces++;
+				row--;
+				column--;
+			}
+
+			if(foundOtherEnd && noOfOpponentPieces>0) {
+				flipOpponentPiecesInPrimaryDiagonalWithinBounds(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+				updatePlayerScores(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+
+				return true;
+			}
+
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isLegalBelowInPrimaryDiagonalThenFlip(int currentRow, int currentColumn, Player currentPlayer) {
+		int noOfOpponentPieces = 0;
+		boolean foundOtherEnd = false;
+
+		int otherEndRow = -1;
+		int otherEndColumn = -1;
+
+		if(!isLastRow(currentRow) || !isLastColumn(currentColumn)) {
+			int row = currentRow + 1;
+			int column = currentColumn + 1;
+
+			while(row<noOfRows && column<noOfColumns) {
+				if(isBlank(row, column)) {
+					return false;
+				}
+
+				if(board[row][column] == currentPlayer.getCode()) {
+					foundOtherEnd = true;
+					otherEndRow = row;
+					otherEndColumn = column;
+
+					break;
+				}
+
+				noOfOpponentPieces++;
+				row++;
+				column++;
+			}
+
+			if(foundOtherEnd && noOfOpponentPieces>0) {
+				flipOpponentPiecesInPrimaryDiagonalWithinBounds(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+				updatePlayerScores(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+
+				return true;
+			}
+
+			return false;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isLegalInSecondaryDiagonalThenFlip(int currentRow, int currentColumn, Player currentPlayer) {
+		return isLegalAboveInSecondaryDiagonalThenFlip(currentRow, currentColumn, currentPlayer)
+				|| isLegalBelowInSecondaryDiagonalThenFlip(currentRow, currentColumn, currentPlayer);
+	}
+
+	private boolean isLegalAboveInSecondaryDiagonalThenFlip(int currentRow, int currentColumn, Player currentPlayer) {
+		int noOfOpponentPieces = 0;
+		boolean foundOtherEnd = false;
+
+		int otherEndRow = -1;
+		int otherEndColumn = -1;
+
+		if(!isFirstRow(currentRow) && !isLastColumn(currentColumn)) {
+			int row = currentRow - 1;
+			int column = currentColumn + 1;
+
+			while(row>=0 && column<noOfColumns) {
+				if(isBlank(row, column)) {
+					return false;
+				}
+
+				if(board[row][column] == currentPlayer.getCode()) {
+					foundOtherEnd = true;
+					otherEndRow = row;
+					otherEndColumn = column;
+
+					break;
+				}
+
+				noOfOpponentPieces++;
+				row--;
+				column++;
+			}
+
+			if(foundOtherEnd && noOfOpponentPieces>0) {
+				flipOpponentPiecesInSecondaryDiagonalWithinBounds(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+				updatePlayerScores(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+
+				return true;
+			}
+
+			return false;
+		}
+
+		return false;
+	}
+
+	private boolean isLegalBelowInSecondaryDiagonalThenFlip(int currentRow, int currentColumn, Player currentPlayer) {
+		int noOfOpponentPieces = 0;
+		boolean foundOtherEnd = false;
+
+		int otherEndRow = -1;
+		int otherEndColumn = -1;
+
+		if(!isLastRow(currentRow) && !isFirstColumn(currentColumn)) {
+			int row = currentRow + 1;
+			int column = currentColumn - 1;
+
+			while(row<noOfRows && column>=0) {
+				if(isBlank(row, column)) {
+					return false;
+				}
+
+				if(board[row][column] == currentPlayer.getCode()) {
+					foundOtherEnd = true;
+					otherEndRow = row;
+					otherEndColumn = column;
+
+					break;
+				}
+
+				noOfOpponentPieces++;
+				row++;
+				column--;
+			}
+
+			if(foundOtherEnd && noOfOpponentPieces>0) {
+				flipOpponentPiecesInSecondaryDiagonalWithinBounds(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+				updatePlayerScores(currentRow, currentColumn, otherEndRow, otherEndColumn, currentPlayer);
+
+				return true;
+			}
+
+			return false;
+		}
+
+		return false;
+	}
+
+	private void flipOpponentPiecesInPrimaryDiagonalWithinBounds(int row1, int column1, int row2, int column2, Player currentPlayer) {
+		int startRow = Math.min(row1, row2);
+		int endRow = Math.max(row1, row2);
+		int startColumn = Math.min(column1, column2);
+		int endColumn = Math.max(column1, column2);
+
+		for(int row=startRow, column=startColumn ; row<=endRow && column<=endColumn ; row++, column--) {
+			board[row][column] = currentPlayer.getCode();
+		}
+	}
+
+	private void flipOpponentPiecesInSecondaryDiagonalWithinBounds(int row1, int column1, int row2, int column2, Player currentPlayer) {
+		int startRow = Math.min(row1, row2);
+		int startColumn = Math.max(column1, column2);
+		int endRow = Math.max(row1, row2);
+		int endColumn = Math.min(column1, column2);
+
+		for(int row=startRow, column=startColumn ; row<=endRow && column>=endColumn ; row++, column--) {
+			board[row][column] = currentPlayer.getCode();
+		}
+	}
+
+	private void updatePlayerScores(int row1, int column1, int row2, int column2, Player currentPlayer) {
+		int rowsDiff = Math.abs(row1 - row2);
+		int columnsDiff = Math.abs(column1 - column2);
+		int scoreDelta = Math.max(rowsDiff, columnsDiff);
+
+		currentPlayer.addScore(scoreDelta);
+
+		Player opponent = getOpponentPlayer(currentPlayer);
+		opponent.reduceScore(scoreDelta - 1);
 	}
 
 	public boolean isFinished() {
