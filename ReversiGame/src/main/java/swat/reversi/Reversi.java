@@ -1,3 +1,7 @@
+package swat.reversi;
+
+import swat.reversi.Player;
+
 /**
  * @author Sujal
  */

@@ -1,3 +1,5 @@
+package swat.reversi;
+
 import java.util.Scanner;
 
 /**
