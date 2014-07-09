@@ -11,6 +11,8 @@
     <modules>
         <module>Algorithms</module>
         <module>ReversiGame</module>
+        <module>T9Dictionary</module>
+        <module>SwatcodeUtilities</module>
     </modules>
 
     <dependencies>
