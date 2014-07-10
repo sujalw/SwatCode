@@ -46,7 +46,8 @@ public class RegexMatching {
 
 		if(isFirstCharMatch(str, pattern)) {
 			if(isStartsWithKleeneZeroOrMore(pattern)) {
-				return isMatch(str.substring(1), pattern);
+				return isMatch(str.substring(1), pattern)
+						|| isMatch(str, pattern.substring(2));
 			} else {
 				return isMatch(str.substring(1), pattern.substring(1));
 			}

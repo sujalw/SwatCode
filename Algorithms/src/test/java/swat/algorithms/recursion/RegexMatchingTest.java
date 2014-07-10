@@ -20,7 +20,8 @@ public class RegexMatchingTest {
 				{"aa", "a*", true},
 				{"aa", ".*", true},
 				{"ab", ".*", true},
-				{"aab", "c*a*b*", true}
+				{"aab", "c*a*b*", true},
+				{"a", "a*a", true}
 		};
 	}
 
