@@ -13,6 +13,7 @@
         <module>ReversiGame</module>
         <module>T9Dictionary</module>
         <module>SwatcodeUtilities</module>
+        <module>Experiment</module>
     </modules>
 
     <dependencies>

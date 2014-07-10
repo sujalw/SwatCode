@@ -28,4 +28,12 @@ public class SwatStringUtils {
 	public static boolean isDigit(char c) {
 		return c>='0' && c<='9';
 	}
+
+	public static boolean isEmpty(String str) {
+		if(str == null) {
+			return false;
+		}
+
+		return str.length() == 0;
+	}
 }
