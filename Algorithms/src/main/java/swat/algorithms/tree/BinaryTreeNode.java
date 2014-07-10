@@ -3,21 +3,21 @@ package swat.algorithms.tree;
 /**
  * @author Sujal
  */
-public class BinaryTreeNode {
-    private Integer key;
-    BinaryTreeNode lChild;
-    BinaryTreeNode rChild;
-    BinaryTreeNode parent;
+public class BinaryTreeNode <T> {
+    private T key;
+    BinaryTreeNode<T> lChild;
+    BinaryTreeNode<T> rChild;
+    BinaryTreeNode<T> parent;
 
-    public BinaryTreeNode(int key) {
+    public BinaryTreeNode(T key) {
         this.key = key;
     }
 
-    public Integer getKey() {
+    public T getKey() {
         return key;
     }
 
-    public void setKey(Integer key) {
+    public void setKey(T key) {
         this.key = key;
     }
 
