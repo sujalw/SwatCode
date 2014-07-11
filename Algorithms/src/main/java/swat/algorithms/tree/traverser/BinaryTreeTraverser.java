@@ -1,4 +1,4 @@
-package swat.algorithms.tree;
+package swat.algorithms.tree.traverser;
 
 import java.util.List;
 

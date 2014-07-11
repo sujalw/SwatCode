@@ -1,4 +1,7 @@
-package swat.algorithms.tree;
+package swat.algorithms.tree.traverser;
+
+import swat.algorithms.tree.BinaryTree;
+import swat.algorithms.tree.BinaryTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
