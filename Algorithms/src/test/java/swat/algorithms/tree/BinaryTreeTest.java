@@ -1,11 +1,9 @@
 package swat.algorithms.tree;
 
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Sujal
@@ -49,7 +47,7 @@ public class BinaryTreeTest {
         };
     }
 
-    @Test(dataProvider = "inorderTraversal")
+    /*@Test(dataProvider = "inorderTraversal")
     public void testInorderTraversalUsingRecursion(int[] treeElements, List<Integer> expectedInorderTraversal) {
         BinaryTree binaryTree = new BinaryTree(treeElements);
         List<Integer> computedInorderTraversal = binaryTree.getInorderUsingRecursion();
@@ -95,5 +93,5 @@ public class BinaryTreeTest {
         List<Integer> computedPostorderTraversal = binaryTree.getPostorderUsingIteration();
 
         assert expectedPostorderTraversal.equals(computedPostorderTraversal);
-    }
+    }*/
 }

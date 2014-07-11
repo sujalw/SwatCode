@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * @author Sujal
  */
-public class BinaryTreeInorderTraverser<T> implements BinaryTreeTraverser {
+public class BinaryTreeInorderTraverser<T> implements BinaryTreeTraverser<T> {
 
 	BinaryTree<T> binaryTree;
 

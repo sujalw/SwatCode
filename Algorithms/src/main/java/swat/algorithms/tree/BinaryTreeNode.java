@@ -9,8 +9,12 @@ public class BinaryTreeNode <T> {
     BinaryTreeNode<T> rChild;
     BinaryTreeNode<T> parent;
 
+	public BinaryTreeNode() {
+
+	}
+
     public BinaryTreeNode(T key) {
-        this.key = key;
+        this.key = (T) key;
     }
 
     public T getKey() {
@@ -43,14 +47,5 @@ public class BinaryTreeNode <T> {
 
     public void setParent(BinaryTreeNode parent) {
         this.parent = parent;
-    }
-
-    public String toString() {
-        String k = "EMP";
-        if(this.getKey() != null) {
-            k = String.valueOf(this.getKey());
-        }
-
-        return k;
     }
 }
