@@ -1,9 +1,8 @@
-package swat.algorithms.tree;
+package swat.algorithms.tree.traverser;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import swat.algorithms.tree.traverser.BinaryTreePreorderTraverser;
-import swat.algorithms.tree.traverser.BinaryTreeTraverser;
+import swat.algorithms.tree.BinaryTree;
 
 import java.util.ArrayList;
 import java.util.Arrays;

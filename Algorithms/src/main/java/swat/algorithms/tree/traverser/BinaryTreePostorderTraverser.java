@@ -11,12 +11,12 @@ import java.util.Stack;
 /**
  * @author Sujal
  */
-public class BinaryTreePostorderTraverser<T> implements BinaryTreeTraverser {
+public class BinaryTreePostorderTraverser<T> extends BinaryTreeTraverser {
 
 	BinaryTree<T> binaryTree;
 
 	public BinaryTreePostorderTraverser(BinaryTree<T> binaryTree) {
-		this.binaryTree = binaryTree;
+		super(binaryTree);
 	}
 
 	@Override

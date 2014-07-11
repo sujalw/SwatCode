@@ -10,12 +10,12 @@ import java.util.Stack;
 /**
  * @author Sujal
  */
-public class BinaryTreePreorderTraverser<T> implements BinaryTreeTraverser {
+public class BinaryTreePreorderTraverser<T> extends BinaryTreeTraverser {
 
 	BinaryTree<T> binaryTree;
 
 	public BinaryTreePreorderTraverser(BinaryTree<T> binaryTree) {
-		this.binaryTree = binaryTree;
+		super(binaryTree);
 	}
 
 	@Override

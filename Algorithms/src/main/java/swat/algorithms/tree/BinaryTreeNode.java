@@ -49,6 +49,14 @@ public class BinaryTreeNode <T> {
         this.parent = parent;
     }
 
+	public boolean hasLeftChild() {
+		return lChild != null;
+	}
+
+	public boolean hasRightChild() {
+		return rChild != null;
+	}
+
 	public String toString() {
 		String k = "NULL";
 		if(this.getKey() != null) {
