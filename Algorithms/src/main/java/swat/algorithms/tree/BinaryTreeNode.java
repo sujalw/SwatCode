@@ -48,4 +48,13 @@ public class BinaryTreeNode <T> {
     public void setParent(BinaryTreeNode parent) {
         this.parent = parent;
     }
+
+	public String toString() {
+		String k = "NULL";
+		if(this.getKey() != null) {
+			k = String.valueOf(this.getKey());
+		}
+
+		return k;
+	}
 }
