@@ -31,6 +31,11 @@ public class BinaryTree <T> {
 	}
 
 	private boolean isValidTreeString(String treeStr) {
+
+		if(SwatStringUtils.isEmpty(treeStr)) {
+			return false;
+		}
+
 		// TODO: implement logic to validate the tree string
 		return true;
 	}
