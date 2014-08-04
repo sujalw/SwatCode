@@ -36,4 +36,31 @@ public class SwatStringUtils {
 
 		return str.length() == 0;
 	}
+
+	public static boolean isBinaryString(String str) {
+		if(str == null || isEmpty(str)) {
+			return false;
+		}
+
+		for(char c : str.toCharArray()) {
+			if(c != '0' && c != '1') {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static String addLeadingZeros(String str, int n) {
+		if(str == null || n <= 0) {
+			return str;
+		}
+
+		StringBuilder stringBuilder = new StringBuilder();
+		for (int i = 0; i < n; i++) {
+			stringBuilder.append('0');
+		}
+
+		return stringBuilder.toString() + str;
+	}
 }
